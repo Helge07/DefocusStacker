@@ -1,5 +1,5 @@
 # DefocusStacker 
-Creates images with blurred background from a stack of images, even for lenses with small aperture 
+Creates images with blurred background from a stack of images - even for lenses with small aperture 
 
 ## Table of contents
 - [Introduction](#Introduction)
@@ -9,7 +9,7 @@ Creates images with blurred background from a stack of images, even for lenses w
 - [Development](#development)
 - [License](#license)
 
-##Introduction
+## Introduction
 Defocus stacking is a method to produce images with blurred background from a stack of images.The stack
 includes a sharp picture of the motif at the top layer and additional pictures beneath which are
 increasingly defocused by shifting the focus plane towards the camera. A detailed description of the underlying algorith was published here: https://www.thephotoargus.com/defocus-stacking-how-to-get-bokeh-without-fast-lenses/
