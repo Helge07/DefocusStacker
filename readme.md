@@ -17,9 +17,11 @@ increasingly defocused by shifting the focus plane towards the camera. A detaile
 `DefocusStacker` is an implementation of the algorithm demonstrating the feasability of the method.
 There are two versions: 
 
-– an implemetation for Windows and 
+– an implemetation for Windows
+  downloadable from this repository
 
 – an implementation for Photoshop
+  downloadable from  https://www.dropbox.com/s/4h896z36wimsfcr/DefocusStacker%28PS%29.zip?dl=0
 
 
 ## Requirements
