@@ -40,7 +40,7 @@ To compile and install the application, follow these steps:
 
 4. To Open the project in Visual Studio click on the file  'DefocusStacker-master\DFS.sln' then select the 'Debug' or 'Release' version.
 
-5. Compile the project `DFS`. This generates the compiled program in the directoriy  'DefocusStacker-master\DFS\bin\Debug'   resp.  'DefocusStacker-master\DFS\bin\Release'
+5. Compile the project `DFS`. This generates the compiled program in the directory  'DefocusStacker-master\DFS\bin\Debug'   resp.  'DefocusStacker-master\DFS\bin\Release'
 
 6. Start DFS.exe  from the directory
    'DefocusStacker-master\DFS\bin\Debug'   resp.  'DefocusStacker-master\DFS\bin\Release'
