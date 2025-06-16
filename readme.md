@@ -40,7 +40,7 @@ To compile and install the application, follow these steps:
 
 3. Open the project file  EosMonitor\EosMonitor.sln
 
-4. Compile the project `DFS`. This generates the directories
+4. Compile the project `DFS`. This generates the compiled program in the directories
    DFS\DFS\bin\Debug   resp.  DFS\DFS\bin\Release
 
 5. Start EosMonitor.exe  from the Debug- resp. Release-directory 
