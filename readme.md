@@ -20,8 +20,7 @@ There are two versions:
 – an implemetation for Windows
   downloadable from this repository
 
-– an implementation for Photoshop
-  downloadable from  https://www.dropbox.com/s/4h896z36wimsfcr/DefocusStacker%28PS%29.zip?dl=0
+– an implementation for Photoshop is downloadable from  https://www.dropbox.com/s/4h896z36wimsfcr/DefocusStacker%28PS%29.zip?dl=0
 
 
 ## Requirements
