@@ -6,7 +6,6 @@ Creates images with blurred background from a stack of images - even for lenses 
 - [Requirements](#Requirements)
 - [Compilation_and_Installation](#Compilation_and_Installation)
 - [Usage](#usage)
-- [Development](#development)
 - [License](#license)
 
 ## Introduction
