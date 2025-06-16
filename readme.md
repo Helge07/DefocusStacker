@@ -35,11 +35,11 @@ To compile and install the application, follow these steps:
    DFS\DFS\bin\Debug   resp.  DFS\DFS\bin\Release
 
 4. Copy all files from the directory Debug_Release into the directories
-5. DFS\DFS\bin\Debug   resp.  DFS\DFS\bin\Release
+   DFS\DFS\bin\Debug   resp.  DFS\DFS\bin\Release
    
-6. Start EosMonitor.exe  from the Debug- resp. Release-directory 
+5. Start EosMonitor.exe  from the Debug- resp. Release-directory 
 
-7. Compiling the project `DFS_Setup` will produce a .msi installation file which can be used to install the application as a Windows application.
+6. Compiling the project `DFS_Setup` will produce a .msi installation file which can be used to install the application as a Windows application.
 
 ## Usage
 The user manual `DefocusStacker manual.pdf` for the `DefocusStacker` can be downloaded from the repository.
