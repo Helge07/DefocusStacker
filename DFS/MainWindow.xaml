@@ -1,0 +1,266 @@
+﻿<Window x:Class="DFS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:DFS"
+        Loaded="MainWindowLoaded"
+        Title="MainWindow" 
+        Height="780" Width="1040"
+        MinHeight="200" MinWidth="200"
+        ResizeMode="CanResizeWithGrip" 
+        SizeChanged="Window_SizeChanged"
+        KeyDown="Window_KeyDown" 
+        MouseLeftButtonUp="Window_MouseLeftButtonUp" >
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="140"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
+
+
+        <!-- Menu buttons-->
+        <StackPanel Name="BtnPanel" Grid.Column="0"  Grid.RowSpan="2" Background="#4487CEFA" VerticalAlignment="Top" Height="720">
+            <Button Name="BtnLoad" Content="Load" Foreground="White" Click="BtnLoad_Click"  >
+                <Button.ToolTip>
+                    <ToolTip Background="#DD87CEFA" BorderBrush="#FF87CEFA">
+                        <TextBlock  FontSize="12" Foreground="White" FontFamily="Arial" Text="Load Images from files" />
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            <Button Name="BtnDelete" Content="Delete" Click="BtnDelete_Click" >
+                <Button.ToolTip >
+                    <ToolTip Background="#DD87CEFA" BorderBrush="#FF87CEFA">
+                        <TextBlock  FontSize="12" Foreground="White" FontFamily="Arial" Text="Select and delete images from the image list" />
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            <Button Name="BtnGrabCut" Content="GrabCut" Click="BtnGrabCut_Click" >
+                <Button.ToolTip >
+                    <ToolTip Background="#DD87CEFA" BorderBrush="#FF87CEFA">
+                        <TextBlock  FontSize="12" Foreground="White" FontFamily="Arial" Text="Start the 'GrabCut' algorithm" />
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            <Button Name="Btn_ConnectedComponents" Content="Conn.Components" Click="Btn_ConnectedComponents_Click" >
+                <Button.ToolTip >
+                    <ToolTip Background="#DD87CEFA" BorderBrush="#FF87CEFA">
+                        <TextBlock  FontSize="12" Foreground="White" FontFamily="Arial" Text="Start the 'Connected Components' algorithm" />
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            <Button Name="BtnSave" Content="Save" Click="BtnSave_Click" >
+                <Button.ToolTip >
+                    <ToolTip Background="#DD87CEFA" BorderBrush="#FF87CEFA">
+                        <TextBlock  FontSize="12" Foreground="White" FontFamily="Arial" Text="Save the result to a file" />
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+        </StackPanel>
+
+        <!-- Controls for CC and GC algorithms -->
+        <StackPanel>
+            <Canvas>
+                <!-- KernelSize Slider Control -->
+                <StackPanel Canvas.Top="250" x:Name="KernelSizeStackPanel" Visibility="Hidden">
+                    <DockPanel HorizontalAlignment="Left"  Visibility="Visible">
+                        <Label DockPanel.Dock="Left" FontWeight="SemiBold" Margin="4,4,0,0" Width="70">Kernel size:</Label>
+                        <TextBox x:Name="KernelSizeTextBox" Text="{Binding ElementName=slKernelSize, Path=Value, 
+                                                UpdateSourceTrigger=PropertyChanged}" Margin="14,4,0,0" 
+                                                TextAlignment="Right" Width="40"  Background="Transparent" />
+                    </DockPanel>
+                    <Slider x:Name="slKernelSize" Minimum="2" TickFrequency="3" IsSnapToTickEnabled="True" Margin="8,2,6,0" 
+                                            ValueChanged="SlKernelSize_ValueChanged" Thumb.DragCompleted="SlDragCompleted" 
+                                            IsMoveToPointEnabled="True"  />
+                </StackPanel >
+
+                <!-- BrushSize Slider Control -->
+                <StackPanel Canvas.Top="300" x:Name="BrushSizeStackPanel" HorizontalAlignment="Left" Margin="0,4,0,0" Visibility="Hidden">
+                    <DockPanel>
+                        <Label DockPanel.Dock="Left" FontWeight="SemiBold" Margin="4,4,0,0" Width="70" >brush size:</Label>
+                        <TextBox Text="{Binding ElementName=slBrushSize, Path=Value, 
+                                                    UpdateSourceTrigger=PropertyChanged}" Margin="14,4,0,0"
+                                                    TextAlignment="Right" Width="40"  Background="Transparent" />
+                    </DockPanel>
+                    <Slider x:Name="slBrushSize" Minimum="5" TickFrequency="1" IsSnapToTickEnabled="True" Margin="8,2,6,0" 
+                                                    ValueChanged="SlBrushSize_ValueChanged" Thumb.DragCompleted="SlDragCompleted" 
+                                                    IsMoveToPointEnabled="True" >
+                    </Slider>
+
+                    <StackPanel>
+                        <DockPanel>
+                            <Label  FontWeight="SemiBold" Margin="4,4,0,0" Width="100" >add FG:</Label>
+                            <Image x:Name="FG_Brush" Width="30" Height="30" Stretch="Fill" Margin="0,4,0,0" MouseUp="FG_Brush_MouseUp" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label  FontWeight="SemiBold" Margin="4,4,0,0" Width="100" >remove FG:</Label>
+                            <Image x:Name="BG_Brush" Width="30" Height="30" Stretch="Fill" Margin="0,4,0,0" MouseUp="BG_Brush_MouseUp" />
+                        </DockPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Color Chanels-->
+                <StackPanel Canvas.Top="300" x:Name="ColorChannnelsStackPanel"  Visibility="Hidden">
+                    <DockPanel  HorizontalAlignment="Left" Margin="0,4,0,0" >
+                        <Label x:Name="ColorChannnels_Label" DockPanel.Dock="Left" FontWeight="SemiBold" Margin="4,4,0,0" >Color channels:</Label>
+                    </DockPanel>
+
+                    <DockPanel x:Name="ColorChannnels_RadioButtons" HorizontalAlignment="Left" Margin="0,4,0,0">
+                        <StackPanel >
+                            <RadioButton x:Name ="rB_Gray" Margin="0,4,0,0" HorizontalAlignment="Center" GroupName="Colors"  Checked="RB_Gray_Checked" />
+                            <TextBox  Text="Gray" HorizontalAlignment="Center" BorderBrush="Transparent" IsEnabled="false"
+                                          FontWeight="DemiBold" TextAlignment="Center" Background="Transparent"/>
+                        </StackPanel>
+                        <StackPanel >
+                            <RadioButton x:Name ="rB_R" Margin="0,4,0,0" HorizontalAlignment="Center"  GroupName="Colors" Checked="RB_Checked" />
+                            <TextBox  Text="R" HorizontalAlignment="Center" TextAlignment="Center" Foreground="Red" IsEnabled="false"
+                                          FontWeight="DemiBold" Background="Transparent" BorderBrush="Transparent" />
+                        </StackPanel>
+                        <StackPanel >
+                            <RadioButton x:Name ="rB_G" Margin="0,4,0,0" HorizontalAlignment="Center"  GroupName="Colors" Checked="RB_Checked"/>
+                            <TextBox  Text="G" HorizontalAlignment="Center" TextAlignment="Center" Foreground="Green" IsEnabled="false"
+                                          FontWeight="DemiBold" Background="Transparent" BorderBrush="Transparent"/>
+                        </StackPanel>
+                        <StackPanel >
+                            <RadioButton x:Name ="rB_B" Margin="0,4,8,0" HorizontalAlignment="Center"  GroupName="Colors" Checked="RB_Checked"/>
+                            <TextBox  Text="B" Margin="0,0,8,0" HorizontalAlignment="Center" Foreground="Blue" IsEnabled="false"
+                                          TextAlignment="Center" FontWeight="DemiBold" Background="Transparent" BorderBrush="Transparent" />
+                        </StackPanel>
+                        <StackPanel >
+                            <RadioButton x:Name ="rB_H" Margin="0,4,0,0" HorizontalAlignment="Center" GroupName="Colors" Checked="RB_Checked"/>
+                            <TextBox  Text="H" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="DemiBold" IsEnabled="false"
+                                          Background="Transparent" BorderBrush="Transparent"/>
+                        </StackPanel>
+                        <StackPanel >
+                            <RadioButton x:Name ="rB_S" Margin="0,4,0,0" HorizontalAlignment="Center" GroupName="Colors" Checked="RB_Checked"/>
+                            <TextBox  Text="S" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="DemiBold" IsEnabled="false"
+                                          Background="Transparent" BorderBrush="Transparent" />
+                        </StackPanel>
+                        <StackPanel >
+                            <RadioButton x:Name ="rB_V" Margin="0,4,0,0" HorizontalAlignment="Center" GroupName="Colors" Checked="RB_Checked"/>
+                            <TextBox  Text="V" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="DemiBold" IsEnabled="false"
+                                          Background="Transparent" BorderBrush="Transparent" />
+                        </StackPanel>
+                
+                
+                    </DockPanel>
+                </StackPanel>
+
+                <!-- SaveMask Checkbox -->
+                <StackPanel Canvas.Top="250" x:Name="SaveMaskCheckboxStackPanel" Visibility="Hidden">
+                    <DockPanel HorizontalAlignment="Left"  Visibility="Visible">
+                        <Label DockPanel.Dock="Left" FontWeight="SemiBold" Margin="10,4,0,0" VerticalAlignment="Center" Width="80">Save image:</Label>
+                        <CheckBox x:Name="SaveImage_Checkbox" Margin="10,8,0,0" VerticalAlignment="Center" Unchecked="SaveImage_Checkbox_Unchecked" Checked="SaveImage_Checkbox_Checked" />
+                    </DockPanel>
+                    <DockPanel HorizontalAlignment="Left"  Visibility="Visible">
+                        <Label DockPanel.Dock="Left" FontWeight="SemiBold" Margin="10,4,0,0" VerticalAlignment="Center" Width="80">Save mask:</Label>
+                        <CheckBox x:Name="SaveMask_Checkbox" Margin="10,8,0,0" VerticalAlignment="Center" Checked="SaveMask_Checkbox_Checked" Unchecked="SaveMask_Checkbox_Unchecked"  />
+                    </DockPanel>
+                </StackPanel >
+
+            </Canvas>
+        </StackPanel >
+
+        <!-- Busy indicator -->
+        <StackPanel x:Name="busyIndicator" Grid.Row="0" VerticalAlignment="Bottom">
+            <Label FontWeight="DemiBold" Margin="4,4,0,0" Visibility="Hidden">Saving result:</Label>
+            <xctk:BusyIndicator x:Name="_busyIndicator" IsBusy="false" Visibility="Visible" Height="8" Width="130" Margin="0,0,0,10"
+                                HorizontalAlignment="Center" Background="MediumSeaGreen" >
+            </xctk:BusyIndicator>
+        </StackPanel>
+
+        <!-- Mask image area -->
+        <StackPanel Grid.Row="1" VerticalAlignment="Top"  >
+            <Border BorderThickness="1" VerticalAlignment="Top"  Height="110" BorderBrush="DarkBlue" Margin="2,0,2,15" >
+                <DockPanel>
+                    <Border BorderThickness="1" VerticalAlignment="Top" Height="104" BorderBrush="DarkBlue" Margin="2,2,2,2" >
+                        <Grid x:Name="MaskArea"  Height="110"  VerticalAlignment="Center" Margin="2,2,2,2" >
+                            <Image x:Name="mask" Visibility="Visible" />
+                        </Grid>
+                    </Border>
+                </DockPanel>
+            </Border>
+        </StackPanel>
+
+        <!-- Main Image area -->
+        <Grid  x:Name="ImageArea" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="1"
+                                            MouseLeftButtonUp="ImageArea_MouseLeftButtonUp" 
+                                            MouseLeftButtonDown="ImageArea_MouseLeftButtonDown" 
+                                            MouseMove="ImageArea_MouseMove" 
+                                            Background="#11111100">
+
+        </Grid>
+
+        <!-- ROI rectangle and Polyline for GC algorithm -->
+        <Canvas x:Name="ImageCanvas" Grid.Row="0" Grid.Column="1">
+            <Polyline x:Name="GCpolyline" StrokeThickness="10" Stroke="DarkBlue" Points="5,5 10,10" Cursor="Pen" Visibility="Hidden" />
+        </Canvas >
+
+        <!-- scrollable image list: List elements are entered with reduced resolution -->
+        <StackPanel Name="SP_ImgList" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="8" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
+            <ScrollViewer x:Name="ScrollViewer" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden" Width="880" Background="#2287CEFA" >
+                <ListView Name="ImageList" ItemsSource="{Binding ImgListe}" BorderThickness="1" BorderBrush="DarkBlue"  Background="#2287CEFA">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="1" BorderBrush="DarkBlue" Padding="0" Margin="2,2,0,2">
+                                <StackPanel Orientation="Horizontal" Background="White" >
+                                    <Grid Width="95" Height="95">
+                                        <Image Source="{Binding Miniatur, Mode=TwoWay}" Height="60" />
+                                        <Rectangle Height="15" Width="95" Fill="LightSlateGray" VerticalAlignment="Top" 
+                                                   HorizontalAlignment="Left"  />
+                                        <TextBlock x:Name="ImgLabel" Text="{Binding ImgDescr}" Margin="0,-1" 
+                                                   Foreground="White" Background="LightSlateGray"
+                                                   VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                                        <CheckBox  x:Name="ChkBox" IsChecked="{Binding ImgSelected, Mode=TwoWay}"  
+                                                   ClickMode="Release"  Checked="CheckBox_Checked" Unchecked="ChkBox_Unchecked" />
+                                        <Rectangle Height="15" Width="30" Fill="LightSlateGray" VerticalAlignment="Top" 
+                                                   HorizontalAlignment="Left" Visibility="{Binding CheckBoxOverlay, Mode=TwoWay}" />
+                                        <TextBlock Text="{Binding FileName}" Margin="1" Foreground="White" 
+                                                   Background="LightSlateGray"  VerticalAlignment="Bottom"/>
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+        </StackPanel>
+
+        <!-- User hints -->
+        <Grid  Name="UserHints"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="1"  >
+            <StackPanel VerticalAlignment="Bottom">
+                <Border  Background="#4487CEFA" BorderThickness="1" VerticalAlignment="Top" Height="24"   BorderBrush="DarkBlue">
+                    <DockPanel>
+
+                        <TextBlock x:Name="Hint1" Height="25" Width="200" HorizontalAlignment="Left" Margin="2,1,0,0"
+                            Background ="#4487CEFA" Foreground="White" FontWeight="SemiBold" Visibility="Hidden">
+                        </TextBlock>
+                        <TextBlock x:Name="Hint2" Height="25" Width="200" HorizontalAlignment="Left" Margin="2,1,0,0" 
+                            Background ="#4487CEFA" Foreground="White"  FontWeight="SemiBold" Visibility="Hidden">
+                        </TextBlock>
+                        <TextBlock x:Name="Hint3" Height="25" Width="200" HorizontalAlignment="Left" Margin="2,1,0,0" 
+                            Background ="#4487CEFA" Foreground="White"  FontWeight="SemiBold" Visibility="Hidden">
+                        </TextBlock>
+                        <TextBlock x:Name="Hint4" Height="25" Width="200" HorizontalAlignment="Left" Margin="2,1,0,0" 
+                            Background ="#4487CEFA" Foreground="White"  FontWeight="SemiBold" Visibility="Hidden">
+                        </TextBlock>
+                        <TextBlock x:Name="Hint5" Height="25" Width="500" HorizontalAlignment="Left" Margin="2,1,0,0" 
+                            Background ="#4487CEFA" Foreground="White"  FontWeight="SemiBold" Visibility="Hidden">
+                        </TextBlock>
+                    </DockPanel>
+
+                </Border>
+            </StackPanel>
+        </Grid >
+        
+    </Grid>
+</Window>
