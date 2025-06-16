@@ -38,7 +38,7 @@ To compile and install the application, follow these steps:
    - DefocusStacker-master\DFS\bin\Release\dll\x86\OpenCvSharpExtern.zip
    - DefocusStacker-master\DFS\bin\Release\OpenCvSharpExtern.zip
 
-4. To Open the project in Visual Studio click on the file  DefocusStacker-master\DFS.sln then select the 'Debug' or 'Release' version.
+4. To Open the project in Visual Studio click on the file  'DefocusStacker-master\DFS.sln' then select the 'Debug' or 'Release' version.
 
 5. Compile the project `DFS`. This generates the compiled program in the directories
    DFS\DFS\bin\Debug   resp.  DFS\DFS\bin\Release
