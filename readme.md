@@ -28,28 +28,30 @@ There are two versions:
 
 ## Compilation_and_Installation
 To compile and install the application, follow these steps:
-1. Get the repository from https://github.com/Helge07/DefocusStacker/tree/master
+1. Get the repository from https://github.com/Helge07/DefocusStacker/tree/master.
+   Unpack the archive 'DefocusStacker-master.zip' to a directory p.e. 'DefocusStacker-master'
 
-2. Unpack the five .zip files (unpacked they are too large for upload into the repository)
-   - DFS\DFS\bin\Debug\dll\x64\OpenCvSharpExtern.zip
-   - DFS\DFS\bin\Debug\dll\x86\OpenCvSharpExtern.zip
-   - DFS\DFS\bin\Release\dll\x64\OpenCvSharpExtern.zip
-   - DFS\DFS\bin\Release\dll\x86\OpenCvSharpExtern.zip
-   - DFS\DFS\bin\Release\OpenCvSharpExtern.zip
+3. Unpack the five .zip files (unpacked they are too large for upload into the repository)
+   - DefocusStacker-master\DFS\bin\Debug\dll\x64\OpenCvSharpExtern.zip
+   - DefocusStacker-master\DFS\bin\Debug\dll\x86\OpenCvSharpExtern.zip
+   - DefocusStacker-master\DFS\bin\Release\dll\x64\OpenCvSharpExtern.zip
+   - DefocusStacker-master\DFS\bin\Release\dll\x86\OpenCvSharpExtern.zip
+   - DefocusStacker-master\DFS\bin\Release\OpenCvSharpExtern.zip
 
-3. Open the project file  EosMonitor\EosMonitor.sln
+4. To Open the project in Visual Studio click on the file  DefocusStacker-master\DFS.sln then select the 'Debug' or 'Release' version.
 
-4. Compile the project `DFS`. This generates the compiled program in the directories
+5. Compile the project `DFS`. This generates the compiled program in the directories
    DFS\DFS\bin\Debug   resp.  DFS\DFS\bin\Release
 
-5. Start EosMonitor.exe  from the Debug- resp. Release-directory 
+6. Start DFS.exe  from the directory
+   DefocusStacker-master\DFS\bin\Debug   resp.  DefocusStacker-master\DFS\bin\Release
 
-9. Compiling the project `DFS_Setup` will produce a .msi installation file which can be used to install the application as a Windows application.
+10. Compiling the project `DFS_Setup` will produce .msi installation files which can be used to install the application as a Windows application.
 
 ## Usage
-The user manual `DefocusStacker manual.pdf` for the `DefocusStacker` can be downloaded from the repository.
+The user manual `DefocusStacker manual.pdf` can be downloaded from the repository.
 
 ## License
-EosMonitor is published under the GPL-3.0 license. See the LICENSE file for more information. 
+`DefocusStacker` is published under the GPL-3.0 license. See the LICENSE file for more information. 
 
 
