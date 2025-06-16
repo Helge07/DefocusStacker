@@ -1,5 +1,5 @@
 # DefocusStacker 
-Creates images with blurred background from a stack of images - even for lenses with small aperture 
+The `DefocusStacker` algorithm creates images with blurred background from a stack of images - even for lenses with small aperture 
 
 ## Table of contents
 - [Introduction](#Introduction)
