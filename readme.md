@@ -44,7 +44,7 @@ To compile and install the application, follow these steps:
    DFS\DFS\bin\Debug   resp.  DFS\DFS\bin\Release
 
 6. Start DFS.exe  from the directory
-   DefocusStacker-master\DFS\bin\Debug   resp.  DefocusStacker-master\DFS\bin\Release
+   'DefocusStacker-master\DFS\bin\Debug'   resp.  'DefocusStacker-master\DFS\bin\Release'
 
 10. Compiling the project `DFS_Setup` will produce .msi installation files which can be used to install the application as a Windows application.
 
