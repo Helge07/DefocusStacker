@@ -29,7 +29,7 @@ There are two versions:
 To compile and install the application, follow these steps:
 1. Get the repository from https://github.com/Helge07/DefocusStacker/tree/master
 
-2. Unpack the five .zip files (unpacke they are too large for upload into the repository)
+2. Unpack the five .zip files (unpacked they are too large for upload into the repository)
    - DFS\DFS\bin\Debug\dll\x64\OpenCvSharpExtern.zip
    - DFS\DFS\bin\Debug\dll\x86\OpenCvSharpExtern.zip
    - DFS\DFS\bin\Release\dll\x64\OpenCvSharpExtern.zip
