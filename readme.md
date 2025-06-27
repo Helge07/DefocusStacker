@@ -50,6 +50,9 @@ To compile and install the application, follow these steps:
 ## Usage
 The user manual `DefocusStacker manual.pdf` can be downloaded from the repository.
 
+## DefocusStacker on GitHub Pages
+- https://helge07.github.io/DefocusStacker/
+
 ## License
 `DefocusStacker` is published under the GPL-3.0 license. See the LICENSE file for more information. 
 
